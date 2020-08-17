@@ -6,7 +6,7 @@ axios.defaults.withCredentials = true
 
 
 const service = axios.create({
-  baseURL: 'http://localhost:6002',
+  baseURL: 'http://121.89.177.244:6002',
   timeout: 50000 ,// 默认请求超时时间
     crossDomain: true,
 

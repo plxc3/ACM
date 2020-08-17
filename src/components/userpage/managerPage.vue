@@ -1,6 +1,195 @@
 <template>
     <div class="">
 
+        <el-dialog
+                title="提示"
+                :visible.sync="centerDialogVisible"
+                width="40%"
+                center>
+            <div class="groups-item card">
+                <span class="group-nameNotice">队名：</span>
+                <input  v-model="insertTeam.teamName" class="group-name" type="text" placeholder="请输入队名" />
+                <br />
+                <span class="group-nameNotice">英文队名：</span>
+                <input  v-model="insertTeam.teamEngName" class="group-name" type="text" placeholder="请输入英文队名" />
+                <!-- <span class="group-name" contenteditable="plaintext-only" onkeydown="key13(this)">adf</span> -->
+                <br />
+                <table>
+                    <thead>
+                    <tr>
+                        <th>职位</th>
+                        <th>姓名</th>
+                        <th>拼音</th>
+                        <th>性别</th>
+                        <th>T恤尺码</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <th>教练</th>
+                        <th>
+                            <el-input
+                                    placeholder="请输入内容"
+                                    v-model="insertTeam.coachName"
+                                  >
+                            </el-input>
+                        </th>
+                        <th>
+                            <el-input
+                                    placeholder="请输入内容"
+                                    v-model="insertTeam.coachPinyin"
+                            >
+                            </el-input>
+                        </th>
+                        <th>
+                            <el-select v-model="insertTeam.coachSex" placeholder="请选择" >
+                                <el-option
+                                        label="男"
+                                        value="男">
+                                </el-option>
+                                <el-option
+                                        label="女"
+                                        value="女">
+                                </el-option>
+                            </el-select>
+                        </th>
+                        <th>
+                            <el-select v-model="insertTeam.coachTsize" placeholder="请选择">
+                                <el-option
+                                        v-for="item in Tsize"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value">
+                                </el-option>
+                            </el-select>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>队员</th>
+                        <th >
+                            <el-input
+                                    placeholder="请输入内容"
+                                    v-model="insertTeam.name1"
+                                  >
+                            </el-input>
+                        </th>
+                        <th>
+                            <el-input
+                                    placeholder="请输入内容"
+                                    v-model="insertTeam.pinyin1"
+                                 >
+                            </el-input>
+                        </th>
+                        <th>
+                            <el-select v-model="insertTeam.sex1" placeholder="请选择" >
+                                <el-option
+                                        label="男"
+                                        value="男">
+                                </el-option>
+                                <el-option
+                                        label="女"
+                                        value="女">
+                                </el-option>
+                            </el-select>
+                        </th>
+                        <th>
+                            <el-select v-model="insertTeam.tsize1" placeholder="请选择" >
+                                <el-option
+                                        v-for="item in Tsize"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value">
+                                </el-option>
+                            </el-select>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>队员</th>
+                        <th>
+                            <el-input
+                                    placeholder="请输入内容"
+                                    v-model="insertTeam.name2"
+                                  >
+                            </el-input>
+                        </th>
+                        <th>
+                            <el-input
+                                    placeholder="请输入内容"
+                                    v-model="insertTeam.pinyin2"
+                                    >
+                            </el-input>
+                        </th>
+                        <th>
+                            <el-select v-model="insertTeam.sex2" placeholder="请选择" >
+                                <el-option
+                                        label="男"
+                                        value="男">
+                                </el-option>
+                                <el-option
+                                        label="女"
+                                        value="女">
+                                </el-option>
+                            </el-select>
+                        </th>
+                        <th>
+                            <el-select v-model="insertTeam.tsize2" placeholder="请选择" >
+                                <el-option
+                                        v-for="item in Tsize"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value">
+                                </el-option>
+                            </el-select>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>队员</th>
+                        <th>
+                            <el-input
+                                    placeholder="请输入内容"
+                                    v-model="insertTeam.name3"
+                                   >
+                            </el-input>
+                        </th>
+                        <th>
+                            <el-input
+                                    placeholder="请输入内容"
+                                    v-model="insertTeam.pinyin3"
+                                   >
+                            </el-input>
+                        </th>
+                        <th>
+                            <el-select v-model="insertTeam.sex3" placeholder="请选择" >
+                                <el-option
+                                        label="男"
+                                        value="男">
+                                </el-option>
+                                <el-option
+                                        label="女"
+                                        value="女">
+                                </el-option>
+                            </el-select>
+                        </th>
+                        <th>
+                            <el-select v-model="insertTeam.tsize3" placeholder="请选择" >
+                                <el-option
+                                        v-for="item in Tsize"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value">
+                                </el-option>
+                            </el-select>
+                        </th>
+                    </tr>
+                </table>
+            </div>
+            <!-- <div class="group-add" onclick="addGroup()">添加队伍+</div> -->
+            <span slot="footer" class="dialog-footer">
+    <el-button @click="centerDialogVisible = false">取 消</el-button>
+    <el-button type="primary" @click="sureSave()">确 定</el-button>
+  </span>
+        </el-dialog>
+
+        <!--===========================================================================================================-->
         <div class="recipienterBox card">
             电话
             <el-input
@@ -55,18 +244,19 @@
             <input  v-if="!disabledVaule" class="changeButton" @click="sureUpdateCard()" type="button" value="确认修改" >
         </div>
         <div id="groups" class="groupsBox">
-            <div class="group-add" onclick="addGroup()">添加队伍+</div>
-            <div class="groups-item card" v-for="i in 2">
+            <div class="group-add" @click="addGroup()">添加队伍+</div>
+            <div class="groups-item card" v-for="i in team" :key="i.id">
                 <span class="group-nameNotice">队名：</span>
-                <input class="group-name" type="text" placeholder="请输入队名" />
+                <input  v-model="i.teamName" class="group-name" type="text" placeholder="请输入队名" />
                 <br />
                 <span class="group-nameNotice">英文队名：</span>
-                <input class="group-name" type="text" placeholder="请输入英文队名" />
+                <input  v-model="i.teamEngName" class="group-name" type="text" placeholder="请输入英文队名" />
                 <!-- <span class="group-name" contenteditable="plaintext-only" onkeydown="key13(this)">adf</span> -->
                 <br />
-                <input class="changeButton" type="button" value="修改信息"  onclick="changeData(this)"/>
+                <input v-if="tableVaule" class="changeButton" type="button" value="修改信息"  @click="changeData(i)"/>
+                <input v-if="!tableVaule" class="changeButton" type="button" value="确认修改"  @click="sureChangeData(i)"/>
                 <span class="group-state">未开始</span>
-                <input class="changeButton group-delete" onclick="deleteGroup(this)" type="button" value="删除队伍"/>
+                <input class="changeButton group-delete" @click="deleteGroup(i)" type="button" value="删除队伍"/>
                 <table>
                     <thead>
                     <tr>
@@ -79,93 +269,163 @@
                     </thead>
                     <tr>
                         <th>教练</th>
-                        <th contenteditable="plaintext-only" onkeydown="key13(this)">柯震东</th>
-                        <th contenteditable="plaintext-only" onkeydown="key13(this)">kezhendong</th>
                         <th>
-                            <select>
-                                <option>男</option>
-                                <option>女</option>
-                            </select>
+                            <el-input
+                                placeholder="请输入内容"
+                                v-model="i.coachName"
+                                :disabled="tableVaule">
+                        </el-input>
                         </th>
                         <th>
-                            <select>
-                                <option>S</option>
-                                <option>M</option>
-                                <option>L</option>
-                                <option>XL</option>
-                                <option>XXL</option>
-                            </select>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>队员</th>
-                        <th contenteditable="plaintext-only" onkeydown="key13(this)">柯震东</th>
-                        <th contenteditable="plaintext-only" onkeydown="key13(this)">kezhendong</th>
-                        <th>
-                            <select>
-                                <option>男</option>
-                                <option>女</option>
-                            </select>
+                            <el-input
+                                    placeholder="请输入内容"
+                                    v-model="i.coachPinyin"
+                                    :disabled="tableVaule">
+                            </el-input>
                         </th>
                         <th>
-                            <select>
-                                <option>S</option>
-                                <option>M</option>
-                                <option>L</option>
-                                <option>XL</option>
-                                <option>XXL</option>
-                            </select>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>队员</th>
-                        <th contenteditable="plaintext-only" onkeydown="key13(this)">柯震东</th>
-                        <th contenteditable="plaintext-only" onkeydown="key13(this)">kezhendong</th>
-                        <th>
-                            <select>
-                                <option>男</option>
-                                <option>女</option>
-                            </select>
+                            <el-select v-model="i.coachSex" placeholder="请选择" :disabled="tableVaule">
+                                <el-option
+                                        label="男"
+                                        value="男">
+                                </el-option>
+                                <el-option
+                                        label="女"
+                                        value="女">
+                                </el-option>
+                            </el-select>
                         </th>
                         <th>
-                            <select>
-                                <option>S</option>
-                                <option>M</option>
-                                <option>L</option>
-                                <option>XL</option>
-                                <option>XXL</option>
-                            </select>
+                            <el-select v-model="i.coachTsize" placeholder="请选择" :disabled="tableVaule">
+                                <el-option
+                                        v-for="item in Tsize"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value">
+                                </el-option>
+                            </el-select>
                         </th>
                     </tr>
                     <tr>
                         <th>队员</th>
-                        <th contenteditable="plaintext-only" onkeydown="key13(this)">柯震东</th>
-                        <th contenteditable="plaintext-only" onkeydown="key13(this)">kezhendong</th>
-                        <th>
-                            <select>
-                                <option>男</option>
-                                <option>女</option>
-                            </select>
+                        <th >
+                            <el-input
+                                    placeholder="请输入内容"
+                                    v-model="i.name1"
+                                    :disabled="tableVaule">
+                            </el-input>
                         </th>
                         <th>
-                            <select>
-                                <option>S</option>
-                                <option>M</option>
-                                <option>L</option>
-                                <option>XL</option>
-                                <option>XXL</option>
-                            </select>
+                            <el-input
+                                    placeholder="请输入内容"
+                                    v-model="i.pinyin1"
+                                    :disabled="tableVaule">
+                            </el-input>
+                        </th>
+                        <th>
+                            <el-select v-model="i.sex1" placeholder="请选择" :disabled="tableVaule">
+                                <el-option
+                                        label="男"
+                                        value="男">
+                                </el-option>
+                                <el-option
+                                        label="女"
+                                        value="女">
+                                </el-option>
+                            </el-select>
+                        </th>
+                        <th>
+                            <el-select v-model="i.tsize1" placeholder="请选择" :disabled="tableVaule">
+                                <el-option
+                                        v-for="item in Tsize"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value">
+                                </el-option>
+                            </el-select>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>队员</th>
+                        <th>
+                            <el-input
+                                    placeholder="请输入内容"
+                                    v-model="i.name2"
+                                    :disabled="tableVaule">
+                            </el-input>
+                        </th>
+                        <th>
+                            <el-input
+                                    placeholder="请输入内容"
+                                    v-model="i.pinyin2"
+                                    :disabled="tableVaule">
+                            </el-input>
+                        </th>
+                        <th>
+                            <el-select v-model="i.sex2" placeholder="请选择" :disabled="tableVaule">
+                                <el-option
+                                        label="男"
+                                        value="男">
+                                </el-option>
+                                <el-option
+                                        label="女"
+                                        value="女">
+                                </el-option>
+                            </el-select>
+                        </th>
+                        <th>
+                            <el-select v-model="i.tsize2" placeholder="请选择" :disabled="tableVaule">
+                                <el-option
+                                        v-for="item in Tsize"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value">
+                                </el-option>
+                            </el-select>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>队员</th>
+                        <th>
+                            <el-input
+                                    placeholder="请输入内容"
+                                    v-model="i.name3"
+                                    :disabled="tableVaule">
+                            </el-input>
+                        </th>
+                        <th>
+                            <el-input
+                                    placeholder="请输入内容"
+                                    v-model="i.pinyin3"
+                                    :disabled="tableVaule">
+                            </el-input>
+                        </th>
+                        <th>
+                            <el-select v-model="i.sex3" placeholder="请选择" :disabled="tableVaule">
+                                <el-option
+                                        label="男"
+                                        value="男">
+                                </el-option>
+                                <el-option
+                                        label="女"
+                                        value="女">
+                                </el-option>
+                            </el-select>
+                        </th>
+                        <th>
+                            <el-select v-model="i.tsize3" placeholder="请选择" :disabled="tableVaule">
+                                <el-option
+                                        v-for="item in Tsize"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value">
+                                </el-option>
+                            </el-select>
                         </th>
                     </tr>
                 </table>
             </div>
             <!-- <div class="group-add" onclick="addGroup()">添加队伍+</div> -->
-        </div>
-
-
-        <div id="deleteBox" class="deleteBox">
-            <input class="changeButton" type="button" value="确定删除" onclick="isDeleteGroup()" />
-            <input class="changeButton" type="button" value="取消" onclick="noDleteGroup()" />
         </div>
 
     </div>
@@ -174,12 +434,41 @@
 <script>
     import cookie from 'js-cookie'
     import usrApi from '../../api/user'
+    import itemApi from '../../api/iteam'
     export default {
         name: "managerPage",
         data(){
             return{
+                proxyId:'',
+                insertTeam:{},
+                centerDialogVisible: false,
                 infoVo:{},
-                disabledVaule:true
+                disabledVaule:true,
+                team:[
+                ],
+                tableVaule:true,
+                Tsize:[
+                    {
+                    value: 'S',
+                    label: 'S'
+                },
+                    {
+                        value: 'M',
+                        label: 'M'
+                    },
+                    {
+                        value: 'L',
+                        label: 'L'
+                    },
+                    {
+                        value: 'Xl',
+                        label: 'XL'
+                    },
+                    {
+                        value: 'XXl',
+                        label: 'XXL'
+                    },
+                ]
             }
         },
         methods:{
@@ -196,6 +485,82 @@
                         })
                         this.disabledVaule=true;
                     })
+            },
+            /**
+             * 删除队伍
+             */
+            deleteGroup(i){
+                this.$confirm('此操作将队伍信息, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    itemApi.deleteTeam(i.id)
+                        .then(res=>{
+                            this.$message({
+                                type: 'success',
+                                message: res.msg
+                            });
+                            this.getList()
+                        })
+
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+            },
+            /**
+             * 修改信息
+             */
+            changeData(){
+                this.tableVaule=false
+            },
+            /**
+             * 确认修改
+             */
+            sureChangeData(i){
+                itemApi.updateTeam(i)
+                    .then(res=>{
+                        this.$message({
+                            type:"success",
+                            message:res.msg
+                        })
+                        this.tableVaule=true
+                    })
+
+            },
+            /**
+             * 添加队伍
+             */
+            addGroup(){
+                this.insertTeam.proxyId=this.proxyId
+                this.centerDialogVisible=true
+            },
+            /**
+             * 确认添加
+             */
+            sureSave(){
+                itemApi.addIteaam(this.insertTeam)
+                    .then(res=>{
+                        this.$message({
+                            type:"success",
+                            message:res.msg
+                        })
+                        this.insertTeam={}
+                        this.getList()
+                        this.centerDialogVisible=false
+                    })
+            },
+            /**
+             * 获取队伍列表
+             */
+            getList(){
+                itemApi.getList(this.proxyId)
+                    .then((res)=>{
+                        this.team=res.data.teams
+                    })
             }
 
         },
@@ -203,6 +568,8 @@
             if(cookie.get("infoVo")){
                 let str=cookie.get("infoVo")
                 this.infoVo=JSON.parse(str)
+                this.proxyId=cookie.get("proxyId")
+                this.getList()
             }
         }
     }
@@ -267,7 +634,7 @@
         border: solid 1px #333;
         transition: 0.5s;
         background: #798;
-        pointer-events: auto;
+        /*pointer-events: auto;*/
     }
     .changeButton:hover {
         box-shadow: 0 0 5px #754;
@@ -300,18 +667,18 @@
     .groups-item {
         margin: 10px;
         padding: 20px 10px;
-        pointer-events: none;
+        /*pointer-events: none;*/
     }
     .groups-item>span {
-        margin: 10px;
+        line-height: 30px;
     }
     .group-nameNotice {
         float: left;
         width: 100px;
     }
     .group-name {
-        font-size: 30px;
-        line-height: 40px;
+        font-size: 20px;
+        line-height: 30px;
         width: calc(90% - 100px);
         padding: 0 15px;
         background: #88bba2;
@@ -323,15 +690,15 @@
         float: right;
     }
     .group-state {
+        margin: 5px;
         padding: 2px 10px;
-        line-height: 20px;
-        font-size: 18px;
+        line-height: 15px;
+        font-size: 15px;
         border-radius: 15px;
         border: solid 1px #333;
         background: #50c6df;
         float: right;
     }
-
 
     .deleteBox {
         position: fixed;
@@ -361,13 +728,13 @@
     table td, table th {
         border: 1px solid #cad9ea;
         color: #555;
-        padding: 5px 0px;
+        padding: 0px 0px;
         outline: none;
     }
     table thead th {
         padding: 2px 5px;
         background-color: #CCE8EB;
-        min-width: 100px;
+        /*min-width: 100px;*/
         color: #333;
     }
     table tr:nth-child(odd) {
@@ -385,5 +752,4 @@
         outline: none;
         background: transparent;
     }
-
 </style>

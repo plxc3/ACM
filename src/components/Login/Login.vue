@@ -58,7 +58,6 @@
                     return callback(new Error('手机号不能为空'));
                 } else {
                     const reg = /^1[3|4|5|7|8|9][0-9]\d{8}$/
-                    console.log(reg.test(value));
                     if (reg.test(value)) {
                         callback();
                     } else {
@@ -120,7 +119,7 @@
                                         //调用接口获取用户信息，放到cookie里
                                         userApi.userLoginInfo()
                                             .then(res=>{
-                                                console.log(res)
+                                                cookie.set("proxyId",res.data.infoVo.id)
                                                 cookie.set("infoVo",res.data.infoVo)
                                                 this.$message("登陆成功")
                                                 this.$store.commit("loginIn")
@@ -150,7 +149,6 @@
                 // })
                 checkImgApi.getImg()
                     .then(res=>{
-                        console.log(res)
                         this.imgVC.imgCodeKey=res.data.result.imgCodeKey
                         this.imgVC.data=res.data.result.data
                     })

@@ -128,8 +128,14 @@
             },
             goLoginOut(){
                 cookie.set("token",'')
+                cookie.set("proxyId",'')
+                cookie.set("infoVo",'')
                 this.$store.commit("loginOut")
                 this.$router.push({path:"/main"})
+                this.$message({
+                    type:"success",
+                    message:"注销成功"
+                })
             },
             goManage(){
                 this.$router.push({path:"/managerPage"})
