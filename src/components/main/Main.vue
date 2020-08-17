@@ -1,8 +1,8 @@
 <template>
 <div class="main">
-    <div class="header">
-        <img src="../../assets/head.png" style="width: 100%" />
-    </div>
+    <!--<div class="header">-->
+        <!--<img src="../../assets/head.png" style="width: 100%" />-->
+    <!--</div>-->
     <div class="text">
         <p style="text-align: center; font-size: 40px; padding: 30px 0px; line-height: 53px;">
             2020年（第十二届）四川省大学生程序设计竞赛

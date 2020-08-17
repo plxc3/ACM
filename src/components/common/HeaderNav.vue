@@ -1,72 +1,76 @@
 <template>
-    <div class="guide">
-        <ul style="position: relative; text-align: center;">
-            <li>
-                <img src="../../assets/0.png" style="height: 40px; position: relative; top: 10px;" />
-            </li>
-            <li class="guide_a">
-                <a  @click="goMain()">首页</a>
-            </li>
-            <li class="guide_a">
-                <a  @click="goInformM()">参赛通知</a>
-                <ul class="guide_ul">
-                    <li>
-                        <a @click="goInform()">竞赛邀请函</a>
-                    </li>
-                    <li>
-                        <a @click="goCommittee()">赛项组委会</a>
-                    </li>
-                    <li>
-                        <a @click="goTime()">竞赛时间</a>
-                    </li>
-                    <li>
-                        <a @click="goBaoming()">竞赛报名</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="guide_a">
-                <a @click="guide()">参赛指南</a>
-                <ul class="guide_ul">
-                    <li>
-                        <a @click="goRequire()">参赛要求</a>
-                    </li>
-                    <li>
-                        <a @click="goawdards()">奖项设置</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="guide_a">
-                <a @click="lodging()" style="color: #599">吃喝住行</a>
-                <ul class="guide_ul">
-                    <li>
-                        <a @click="recommend()">住宿推荐</a>
-                    </li>
-                    <li>
-                        <a @click="lodgingway()">交通路线</a>
-                    </li>
-                    <li>
-                        <a @click="goMap()">校园地图</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="guide_a">
-                <a @click="goyibin()">宜宾之美</a>
-            </li>
-            <li class="guide_a">
-                <a @click="golist()">竞赛榜单</a>
-            </li>
-            <li class="guide_a">
-                <a @click="goLogin" v-if="!$store.state.loginState">参赛院校登录</a>
-            </li>
-            <li class="guide_a" v-if="$store.state.loginState">
-                <a @click="goManage()">管理页面</a>
-            </li>
-            <li class="guide_a" v-if="$store.state.loginState">
-                <a @click="goLoginOut()">退出登录</a>
-            </li>
-        </ul>
+    <div class="">
+        <div class="guide">
+            <ul style="position: relative; text-align: center;">
+                <li>
+                    <img src="../../assets/0.png" style="height: 40px; position: relative; top: 10px;" />
+                </li>
+                <li class="guide_a">
+                    <a  @click="goMain()">首页</a>
+                </li>
+                <li class="guide_a">
+                    <a  @click="goInformM()">参赛通知</a>
+                    <ul class="guide_ul">
+                        <li>
+                            <a @click="goInform()">竞赛邀请函</a>
+                        </li>
+                        <li>
+                            <a @click="goCommittee()">赛项组委会</a>
+                        </li>
+                        <li>
+                            <a @click="goTime()">竞赛时间</a>
+                        </li>
+                        <li>
+                            <a @click="goBaoming()">竞赛报名</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="guide_a">
+                    <a @click="guide()">参赛指南</a>
+                    <ul class="guide_ul">
+                        <li>
+                            <a @click="goRequire()">参赛要求</a>
+                        </li>
+                        <li>
+                            <a @click="goawdards()">奖项设置</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="guide_a">
+                    <a @click="lodging()" >吃喝住行</a>
+                    <ul class="guide_ul">
+                        <li>
+                            <a @click="recommend()">住宿推荐</a>
+                        </li>
+                        <li>
+                            <a @click="lodgingway()">交通路线</a>
+                        </li>
+                        <li>
+                            <a @click="goMap()">校园地图</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="guide_a">
+                    <a @click="goyibin()">宜宾之美</a>
+                </li>
+                <li class="guide_a">
+                    <a @click="golist()">竞赛榜单</a>
+                </li>
+                <li class="guide_a">
+                    <a @click="goLogin" v-if="!$store.state.loginState">参赛院校登录</a>
+                </li>
+                <li class="guide_a" v-if="$store.state.loginState">
+                    <a @click="goManage()">管理页面</a>
+                </li>
+                <li class="guide_a" v-if="$store.state.loginState">
+                    <a @click="goLoginOut()">退出登录</a>
+                </li>
+            </ul>
+        </div>
+        <div class="header">
+            <img src="../../assets/head.png" style="width: 100%" v-if="!$store.state.loginState" />
+        </div>
     </div>
-
 </template>
 
 <script>

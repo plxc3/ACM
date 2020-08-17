@@ -1,8 +1,8 @@
 <template>
    <div class="">
-       <div class="header">
-           <img src="../../assets/head.png" style="width: 100%" />
-       </div>
+       <!--<div class="header">-->
+           <!--<img src="../../assets/head.png" style="width: 100%" />-->
+       <!--</div>-->
        <div class="guide2">
            <div style="border-top: 10px solid transparent; border-left: 20px solid #599;border-bottom: 10px solid transparent; float: left; margin: 7px;"></div>
            <a href="inform_invitation.html" style="color: #599">竞赛邀请函</a> |

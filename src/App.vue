@@ -18,5 +18,9 @@ import Header from './components/common/HeaderNav'
 </script>
 
 <style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
 
 </style>
