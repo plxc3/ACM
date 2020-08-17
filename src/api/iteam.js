@@ -32,5 +32,14 @@ export default {
             url:"/admin/team/deleted/"+id,
             method:"get"
         })
+    },
+    /**
+     * 小组Excel获取
+     */
+    getTeamExcel(id){
+        return request({
+            url:"/admin/team/getFrontEndList/"+id,
+            method:"get"
+        })
     }
 }

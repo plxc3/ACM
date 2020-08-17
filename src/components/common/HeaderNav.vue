@@ -1,5 +1,5 @@
 <template>
-    <div class="">
+    <div class="" v-if="$store.state.admin">
         <div class="guide">
             <ul style="position: relative; text-align: center;">
                 <li>

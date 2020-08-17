@@ -1,10 +1,7 @@
 <template>
     <div class="main">
-        <h1>LOGIN</h1>
+        <h1 style="margin-bottom: 20px">登陆</h1>
         <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-            <el-form-item label="" prop="">
-                <el-link type="primary" @click="goRegister()">Register</el-link>
-            </el-form-item>
             <el-form-item label="手机号" prop="phone">
                 <el-input v-model.number="ruleForm.phone" prefix-icon="el-icon-phone"/>
             </el-form-item>
@@ -28,6 +25,9 @@
             <el-form-item>
                 <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
                 <el-button @click="resetForm('ruleForm')">重置</el-button>
+            </el-form-item>
+            <el-form-item label="" prop="">
+                <el-link type="primary" @click="goRegister()">学校注册！</el-link>
             </el-form-item>
         </el-form>
     </div>
@@ -135,6 +135,7 @@
                         return false;
                     }
                 });
+                this.getNewImg()
             },
             resetForm(formName) {
                 this.$refs[formName].resetFields();

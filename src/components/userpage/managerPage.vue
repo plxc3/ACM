@@ -195,7 +195,7 @@
             <el-input
                     placeholder="请输入内容"
                     v-model="infoVo.phone"
-                    :disabled="disabledVaule">
+                    disabled="true">
             </el-input>
             <!--<p contenteditable="plaintext-only" onkeydown="key13(this)">{{infoVo.phone}}</p>-->
             学校中文名
@@ -244,18 +244,31 @@
             <input  v-if="!disabledVaule" class="changeButton" @click="sureUpdateCard()" type="button" value="确认修改" >
         </div>
         <div id="groups" class="groupsBox">
+            <div class="group-add" @click="allGroup()">全部队伍列表</div>
             <div class="group-add" @click="addGroup()">添加队伍+</div>
             <div class="groups-item card" v-for="i in team" :key="i.id">
                 <span class="group-nameNotice">队名：</span>
-                <input  v-model="i.teamName" class="group-name" type="text" placeholder="请输入队名" />
+                <el-input
+                        placeholder="请输入队名"
+                        v-model="i.teamName"
+                        style="width: 60%;margin-left: 50px"
+                        :disabled="tableVaule">
+                </el-input>
+                <!--<input  v-model="i.teamName" class="group-name" type="text" placeholder="请输入队名" :disabled="tableVaule" />-->
                 <br />
                 <span class="group-nameNotice">英文队名：</span>
-                <input  v-model="i.teamEngName" class="group-name" type="text" placeholder="请输入英文队名" />
+                <el-input
+                        placeholder="请输入队名"
+                        v-model="i.teamEngName"
+                        style="width: 60%;margin-left: 50px"
+                        :disabled="tableVaule">
+                </el-input>
+                <!--<input  v-model="i.teamEngName" class="group-name" type="text" placeholder="请输入英文队名" :disabled="tableVaule" />-->
                 <!-- <span class="group-name" contenteditable="plaintext-only" onkeydown="key13(this)">adf</span> -->
                 <br />
                 <input v-if="tableVaule" class="changeButton" type="button" value="修改信息"  @click="changeData(i)"/>
                 <input v-if="!tableVaule" class="changeButton" type="button" value="确认修改"  @click="sureChangeData(i)"/>
-                <span class="group-state">未开始</span>
+                <span class="group-state">{{i.state}}</span>
                 <input class="changeButton group-delete" @click="deleteGroup(i)" type="button" value="删除队伍"/>
                 <table>
                     <thead>
@@ -428,6 +441,84 @@
             <!-- <div class="group-add" onclick="addGroup()">添加队伍+</div> -->
         </div>
 
+        <el-dialog
+                title="提示"
+                :visible.sync="dialogVisible2"
+                width="30%"
+        >
+            <div id="allBox" class="allBox">
+                <table>
+                    <thead>
+                    <tr>
+                        <th rowspan="2">学校中文名</th>
+                        <th rowspan="2">学校英文名</th>
+                        <th rowspan="2">发票抬头</th>
+                        <th rowspan="2">税号</th>
+                        <th rowspan="2">中文队名</th>
+                        <th rowspan="2">英文队名</th>
+                        <th colspan="4">队员1</th>
+                        <th colspan="4">队员2</th>
+                        <th colspan="4">队员3</th>
+                        <th colspan="4">教练</th>
+                        <th colspan="3">证书接收人</th>
+                    </tr>
+                    <tr>
+                        <th>中文姓名</th>
+                        <th>拼音</th>
+                        <th>性别</th>
+                        <th>T恤尺码</th>
+                        <th>中文姓名</th>
+                        <th>拼音</th>
+                        <th>性别</th>
+                        <th>T恤尺码</th>
+                        <th>中文姓名</th>
+                        <th>拼音</th>
+                        <th>性别</th>
+                        <th>T恤尺码</th>
+                        <th>中文姓名</th>
+                        <th>拼音</th>
+                        <th>性别</th>
+                        <th>T恤尺码</th>
+                        <th>邮寄地址</th>
+                        <th>联系人</th>
+                        <th>电话</th>
+                    </tr>
+                    </thead>
+                    <tr v-for="i in teamsExceL">
+                        <td>{{i.uniName}}</td>
+                        <td>{{i.uniEngName}}</td>
+                        <td>{{i.invoice}}</td>
+                        <td>{{i.tfn}}</td>
+                        <td>{{i.teamName}}</td>
+                        <td>{{i.teamEngName}}</td>
+                        <td>{{i.name1}}</td>
+                        <td>{{i.pinyin1}}</td>
+                        <td>{{i.sex1}}</td>
+                        <td>{{i.tsize1}}</td>
+                        <td>{{i.name2}}</td>
+                        <td>{{i.pinyin2}} </td>
+                        <td>{{i.sex2}}</td>
+                        <td>{{i.tsize2}}</td>
+                        <td>{{i.name3}}</td>
+                        <td>{{i.pinyin3}}</td>
+                        <td>{{i.sex3}}</td>
+                        <td>{{i.tsize3}}</td>
+                        <td>{{i.coachName}}</td>
+                        <td>{{i.coachPinyin}}</td>
+                        <td>{{i.coachSex}}</td>
+                        <td>{{i.coachTsize}}</td>
+                        <td>{{i.address}}</td>
+                        <td>{{i.name}}</td>
+                        <td>{{i.phone}}</td>
+                    </tr>
+                </table>
+            </div>
+            <span slot="footer" class="dialog-footer">
+    <el-button @click="dialogVisible2 = false">取 消</el-button>
+    <el-button type="primary" @click="dialogVisible2=false">确 定</el-button>
+  </span>
+        </el-dialog>
+
     </div>
 </template>
 
@@ -435,10 +526,13 @@
     import cookie from 'js-cookie'
     import usrApi from '../../api/user'
     import itemApi from '../../api/iteam'
+    import team from "../../api/team";
     export default {
         name: "managerPage",
         data(){
             return{
+                dialogVisible2:false,
+                teamsExceL:[],
                 proxyId:'',
                 insertTeam:{},
                 centerDialogVisible: false,
@@ -483,6 +577,7 @@
                             type:"success",
                             message:res.msg
                         })
+                        this.getExcel()
                         this.disabledVaule=true;
                     })
             },
@@ -490,7 +585,7 @@
              * 删除队伍
              */
             deleteGroup(i){
-                this.$confirm('此操作将队伍信息, 是否继续?', '提示', {
+                this.$confirm('此操作将删除队伍, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
@@ -527,9 +622,9 @@
                             type:"success",
                             message:res.msg
                         })
+                        this.getExcel()
                         this.tableVaule=true
                     })
-
             },
             /**
              * 添加队伍
@@ -560,9 +655,21 @@
                 itemApi.getList(this.proxyId)
                     .then((res)=>{
                         this.team=res.data.teams
+                        this.getExcel()
                     })
+            },
+            /**
+             * 获取Excel
+             */
+            getExcel(){
+                itemApi.getTeamExcel(this.proxyId)
+                    .then(res=>{
+                        this.teamsExceL=res.data.TeamList
+                    })
+            },
+            allGroup(){
+                this.dialogVisible2=true
             }
-
         },
         created(){
             if(cookie.get("infoVo")){
@@ -751,5 +858,34 @@
         color: #555;
         outline: none;
         background: transparent;
+    }
+
+
+    .allBox {
+        width: 95%;
+        padding: 10px 1%;
+        margin: 10px 0px;
+        position: fixed;
+        top: 0;
+        left: 1.5%;
+        overflow: auto;
+        background: #eee;
+        box-shadow: 0 0 10px #666;
+        font-size: 13px;
+        /*opacity: 0;*/
+        /*pointer-events: auto;*/
+        transition: .5s;
+        /*pointer-events: none;*/
+        transform: translate(0, -30px);
+    }
+    .allBox > table {
+        margin-top: 10px;
+        width: 100%;
+    }
+    .allBox > table td, .allBox >table th {
+        border: 1px solid black;
+    }
+    .allBox table thead th {
+        min-width: 10px;
     }
 </style>

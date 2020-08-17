@@ -1,9 +1,9 @@
 <template>
     <div class="main">
-        <h1>Register</h1>
+        <h1>学校注册</h1>
         <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
             <el-form-item label="" prop="">
-                <el-link type="primary" @click="goLogin()">Login</el-link>
+                <el-link type="primary" @click="goLogin()">登陆!</el-link>
             </el-form-item>
             <el-form-item label="手机号" prop="phone">
                 <el-input v-model.number="ruleForm.phone" prefix-icon="el-icon-phone"/>
@@ -233,6 +233,7 @@
                                     })
                                 })
                         })
+                this.getNewImg()
             },
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {

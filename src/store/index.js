@@ -8,7 +8,8 @@ Vue.use(Vuex)
 
 const store=new Vuex.Store({
     state:{
-        loginState:false
+        loginState:false,
+        admin:true
     },
     mutations:{
         loginIn(state){
@@ -16,6 +17,12 @@ const store=new Vuex.Store({
         },
         loginOut(state){
             state.loginState=false
+        },
+        adminIn(state){
+            state.admin=false
+        },
+        adminOut(state){
+            state.admin=true
         }
     },
     plugins: [
