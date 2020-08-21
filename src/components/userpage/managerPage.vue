@@ -1,10 +1,9 @@
 <template>
     <div class="">
-
         <el-dialog
                 title="提示"
                 :visible.sync="centerDialogVisible"
-                width="40%"
+                width="100%"
                 center>
             <div class="groups-item card">
                 <span class="group-nameNotice">队名：</span>
@@ -64,7 +63,7 @@
                         </th>
                     </tr>
                     <tr>
-                        <th>队员</th>
+                        <th>队员1</th>
                         <th >
                             <el-input
                                     placeholder="请输入内容"
@@ -103,7 +102,7 @@
                         </th>
                     </tr>
                     <tr>
-                        <th>队员</th>
+                        <th>队员2</th>
                         <th>
                             <el-input
                                     placeholder="请输入内容"
@@ -142,7 +141,7 @@
                         </th>
                     </tr>
                     <tr>
-                        <th>队员</th>
+                        <th>队员3</th>
                         <th>
                             <el-input
                                     placeholder="请输入内容"
@@ -195,7 +194,7 @@
             <el-input
                     placeholder="请输入内容"
                     v-model="infoVo.phone"
-                    disabled="true">
+                    :disabled="true">
             </el-input>
             <!--<p contenteditable="plaintext-only" onkeydown="key13(this)">{{infoVo.phone}}</p>-->
             学校中文名
@@ -240,19 +239,21 @@
                     :disabled="disabledVaule">
             </el-input>
             <!--<p contenteditable="plaintext-only" onkeydown="key13(this)">{{infoVo.address}}</p>-->
-            <input v-if="disabledVaule" class="changeButton" @click="udateCard()" type="button" value="修改信息"/>
-            <input  v-if="!disabledVaule" class="changeButton" @click="sureUpdateCard()" type="button" value="确认修改" >
+            <input v-if="disabledVaule" class="changeButton" @click="udateCard()" type="button" value="修改学校信息"v-show="roleVaule" />
+            <input  v-if="!disabledVaule" class="changeButton" @click="sureUpdateCard()" type="button" value="确认修改"v-show="roleVaule"  >
+            <br>
+            <input  class="changeButton" @click="updatePassword()" type="button" value="修改学校密码" >
         </div>
         <div id="groups" class="groupsBox">
             <div class="group-add" @click="allGroup()">全部队伍列表</div>
-            <div class="group-add" @click="addGroup()">添加队伍+</div>
+            <div class="group-add" @click="addGroup()" v-show="roleVaule">添加队伍+</div>
             <div class="groups-item card" v-for="i in team" :key="i.id">
                 <span class="group-nameNotice">队名：</span>
                 <el-input
                         placeholder="请输入队名"
                         v-model="i.teamName"
                         style="width: 60%;margin-left: 50px"
-                        :disabled="tableVaule">
+                        :disabled="true">
                 </el-input>
                 <!--<input  v-model="i.teamName" class="group-name" type="text" placeholder="请输入队名" :disabled="tableVaule" />-->
                 <br />
@@ -261,15 +262,15 @@
                         placeholder="请输入队名"
                         v-model="i.teamEngName"
                         style="width: 60%;margin-left: 50px"
-                        :disabled="tableVaule">
+                        :disabled="true">
                 </el-input>
                 <!--<input  v-model="i.teamEngName" class="group-name" type="text" placeholder="请输入英文队名" :disabled="tableVaule" />-->
                 <!-- <span class="group-name" contenteditable="plaintext-only" onkeydown="key13(this)">adf</span> -->
                 <br />
-                <input v-if="tableVaule" class="changeButton" type="button" value="修改信息"  @click="changeData(i)"/>
-                <input v-if="!tableVaule" class="changeButton" type="button" value="确认修改"  @click="sureChangeData(i)"/>
+                <input v-if="tableVaule" class="changeButton" type="button" value="修改成员信息"v-show="roleVaule"   @click="changeData(i)"/>
+                <input v-if="!tableVaule" class="changeButton" type="button" value="确认修改"  v-show="roleVaule" @click="sureChangeData(i)"/>
                 <span class="group-state">{{i.state}}</span>
-                <input class="changeButton group-delete" @click="deleteGroup(i)" type="button" value="删除队伍"/>
+                <input class="changeButton group-delete" @click="deleteGroup(i)" type="button" value="删除队伍" v-show="roleVaule"/>
                 <table>
                     <thead>
                     <tr>
@@ -320,7 +321,7 @@
                         </th>
                     </tr>
                     <tr>
-                        <th>队员</th>
+                        <th>队员1</th>
                         <th >
                             <el-input
                                     placeholder="请输入内容"
@@ -359,7 +360,7 @@
                         </th>
                     </tr>
                     <tr>
-                        <th>队员</th>
+                        <th>队员2</th>
                         <th>
                             <el-input
                                     placeholder="请输入内容"
@@ -398,7 +399,7 @@
                         </th>
                     </tr>
                     <tr>
-                        <th>队员</th>
+                        <th>队员3</th>
                         <th>
                             <el-input
                                     placeholder="请输入内容"
@@ -519,6 +520,31 @@
   </span>
         </el-dialog>
 
+
+        <!--修改密码-->
+        <el-dialog
+                title="提示"
+                :visible.sync="dialogVisible"
+        >
+            <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+                <el-form-item label="密码" prop="pass">
+                    <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="确认密码" prop="checkPass">
+                    <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-button @click="dialogVisible = false">取 消</el-button>
+                    <el-button type="primary" @click="surePassword('ruleForm')">确 定</el-button>
+                    <!--<el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>-->
+                    <!--<el-button @click="resetForm('ruleForm')">重置</el-button>-->
+                </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+  </span>
+        </el-dialog>
+
+
     </div>
 </template>
 
@@ -526,15 +552,74 @@
     import cookie from 'js-cookie'
     import usrApi from '../../api/user'
     import itemApi from '../../api/iteam'
-    import team from "../../api/team";
     export default {
         name: "managerPage",
         data(){
+            var validatePass = (rule, value, callback) => {
+                if (value === '') {
+                    callback(new Error('请输入密码'));
+                } else {
+                    if (this.ruleForm.checkPass !== '') {
+                        this.$refs.ruleForm.validateField('checkPass');
+                    }
+                    callback();
+                }
+            };
+            var validatePass2 = (rule, value, callback) => {
+                if (value === '') {
+                    callback(new Error('请再次输入密码'));
+                } else if (value !== this.ruleForm.password) {
+                    callback(new Error('两次输入密码不一致!'));
+                } else {
+                    callback();
+                }
+            }
             return{
+                dialogVisible:false,
+                roleVaule:true,
+                ruleForm: {
+                    password: '',
+                    checkPass: '',
+                },
+                rules: {
+                    password: [
+                        { validator: validatePass, trigger: 'blur' }
+                    ],
+                    checkPass: [
+                        { validator: validatePass2, trigger: 'blur' }
+                    ],
+                },
                 dialogVisible2:false,
                 teamsExceL:[],
                 proxyId:'',
-                insertTeam:{},
+                insertTeam:{
+                    coachTsize:"S",
+                    coachSex:"男",
+                    name2:"",
+                    pinyin2:"",
+                    sex2:"男",
+                    sex1:"男",
+                    tsize2:"S",
+                    name3:"",
+                    pinyin3:"",
+                    sex3:"男",
+                    tsize3:"S",
+                    tsize1:"S",
+                },
+                insertTeam2:{
+                    coachTsize:"S",
+                    coachSex:"男",
+                    name2:"",
+                    pinyin2:"",
+                    sex2:"男",
+                    sex1:"男",
+                    tsize2:"S",
+                    name3:"",
+                    pinyin3:"",
+                    sex3:"男",
+                    tsize3:"S",
+                    tsize1:"S",
+                },
                 centerDialogVisible: false,
                 infoVo:{},
                 disabledVaule:true,
@@ -577,7 +662,6 @@
                             type:"success",
                             message:res.msg
                         })
-                        this.getExcel()
                         this.disabledVaule=true;
                     })
             },
@@ -622,7 +706,7 @@
                             type:"success",
                             message:res.msg
                         })
-                        this.getExcel()
+                        this.getList()
                         this.tableVaule=true
                     })
             },
@@ -644,6 +728,7 @@
                             message:res.msg
                         })
                         this.insertTeam={}
+                        this.insertTeam=this.insertTeam2
                         this.getList()
                         this.centerDialogVisible=false
                     })
@@ -655,20 +740,30 @@
                 itemApi.getList(this.proxyId)
                     .then((res)=>{
                         this.team=res.data.teams
-                        this.getExcel()
-                    })
-            },
-            /**
-             * 获取Excel
-             */
-            getExcel(){
-                itemApi.getTeamExcel(this.proxyId)
-                    .then(res=>{
-                        this.teamsExceL=res.data.TeamList
                     })
             },
             allGroup(){
-                this.dialogVisible2=true
+                this.$router.push("/excel")
+            },
+            updatePassword(){
+                this.dialogVisible=true
+            },
+            surePassword(){
+                console.log(this.ruleForm)
+                usrApi.updateCard(this.ruleForm)
+                    .then(res=>{
+                        this.$message({
+                            type:"success",
+                            message:res.msg
+                        })
+                        this.dialogVisible=false
+                        cookie.set("token",'')
+                        cookie.set("proxyId",'')
+                        cookie.set("infoVo",'')
+                        cookie.set("role",'')
+                        this.$store.commit("loginOut")
+                        this.$router.push({path:"/main"})
+                    })
             }
         },
         created(){
@@ -676,7 +771,13 @@
                 let str=cookie.get("infoVo")
                 this.infoVo=JSON.parse(str)
                 this.proxyId=cookie.get("proxyId")
+                this.ruleForm.id=cookie.get("proxyId")
                 this.getList()
+            }
+            if(cookie.get("role")>0){
+                this.roleVaule=true
+            }else {
+                this.roleVaule=false
             }
         }
     }

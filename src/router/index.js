@@ -101,27 +101,11 @@ const routes=[
         path:"/managerPage",
         component: resolve => require(['../components/userpage/managerPage.vue'], resolve)
     },
-    /**
-     * 后台管理路由
-     */
+
     {
-        path:"/adminMain",
-        component:()=>import("../components/admin/adminLogin.vue")
+        path:"/excel",
+        component: resolve => require(['../components/userpage/Excel.vue'], resolve)
     },
-    {
-        path:"/adminManage",
-        component:()=>import("../components/admin/adminManage.vue")
-    }
-    // //adminLogin.vue
-    // {
-    //     path:"/adminLogin",
-    //     component: resolve => require(['../components/admin/adminLogin.vue'], resolve)
-    // },
-    // //adminManage.vue
-    // {
-    //     path:"/adminManage",
-    //     component: resolve => require(['../components/admin/adminManage.vue'], resolve)
-    // },
 ]
 
 const router=new VueRouter({
@@ -134,7 +118,7 @@ const router=new VueRouter({
  */
 router.beforeEach((to, from, next) => {
 
-    if ( to.path=='/managerPage' || to.path=="/adminManage") {
+    if ( to.path=='/managerPage'||to.path=="/excel") {
         // 每次页面跳转执行，token或openId錯誤，均提示跳转到首页
         let token = cookie.get('token')
         if (token === null || token === '' || token === undefined) {

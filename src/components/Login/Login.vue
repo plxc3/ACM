@@ -115,12 +115,14 @@
                                          * 获取token并放到cookie里面
                                          * 第一个参数cookie名称，参数值，作用范围
                                          */
-                                        cookie.set("token", res.data.token)
+                                        var inFifteenMinutes = new Date(new Date().getTime() + 30 * 60 * 1000);
+                                        cookie.set("token", res.data.token,{expires:inFifteenMinutes})
                                         //调用接口获取用户信息，放到cookie里
                                         userApi.userLoginInfo()
                                             .then(res=>{
                                                 cookie.set("proxyId",res.data.infoVo.id)
                                                 cookie.set("infoVo",res.data.infoVo)
+                                                cookie.set("role",res.data.infoVo.role)
                                                 this.$message("登陆成功")
                                                 this.$store.commit("loginIn")
                                                 this.$router.push({path:"/managerPage"})

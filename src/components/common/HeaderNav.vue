@@ -1,7 +1,11 @@
 <template>
-    <div class="" v-if="$store.state.admin">
-        <div class="guide">
-            <ul style="position: relative; text-align: center;">
+    <div class="">
+        <div class="guide" >
+            <el-radio-group  style="margin-bottom: 20px;" class="navbutton" v-model="isCollapse">
+                <el-radio-button :label="true">展开</el-radio-button>
+                <el-radio-button :label="false">收起</el-radio-button>
+            </el-radio-group>
+            <ul style="position: relative; text-align: center;" v-show="isCollapse">
                 <li>
                     <img src="../../assets/0.png" style="height: 40px; position: relative; top: 10px;" />
                 </li>
@@ -79,6 +83,7 @@
         name: "HeaderNav",
         data() {
             return {
+                isCollapse:true,
             };
         },
         methods: {
@@ -134,6 +139,7 @@
                 cookie.set("token",'')
                 cookie.set("proxyId",'')
                 cookie.set("infoVo",'')
+                cookie.set("role",'')
                 this.$store.commit("loginOut")
                 this.$router.push({path:"/main"})
                 this.$message({
@@ -208,6 +214,9 @@
         color: white;
     }
     @media screen and (min-width: 700px) {
+        .navbutton{
+            display: none;
+        }
         .guide_a > a{
             line-height: 70px;
         }

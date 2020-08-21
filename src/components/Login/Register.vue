@@ -1,5 +1,6 @@
 <template>
-    <div class="main">
+<div class="">
+    <div class="main" v-if="!manager">
         <h1>学校注册</h1>
         <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
             <el-form-item label="" prop="">
@@ -56,11 +57,16 @@
             </el-form-item>
         </el-form>
     </div>
+    <div class="main2" v-if="manager" style="">
+        <h1>注册功能暂时关闭，请点击参赛院校登陆返回登陆界面</h1>
+    </div>
+</div>
 </template>
 
 <script>
     import checkImgApi from '../../api/checkImg'
     import userApi from "../../api/user"
+    import mApi from "../../api/manager"
     export default {
         name: "Register",
         data(){
@@ -139,6 +145,7 @@
 
 
             return{
+                manager:false,
                 /**
                  *图片验证码
                  */
@@ -249,8 +256,19 @@
                     }
                 });
             },
+            selectManage(){
+                mApi.selectManager()
+                    .then(res=>{
+                        if(res.data.manager.manager){
+                            this.manager=false
+                        }else {
+                            this.manager=true
+                        }
+                    })
+            }
         },
         created(){
+            this.selectManage();
             this.getNewImg();
         }
     }
